@@ -1,0 +1,13 @@
+[package]
+name = "log-cruncher"
+version = "0.1.0"
+description = "Log Cruncher"
+edition = "2021"
+
+[dependencies]
+clap = "2"
+thiserror = "1"
+num_cpus = "1"
+crossbeam = "0.8.1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
