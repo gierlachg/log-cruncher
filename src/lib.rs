@@ -1,7 +1,9 @@
 #![forbid(unsafe_code)]
 
 use std::collections::HashMap;
+use std::error::Error;
 use std::fmt::{Display, Formatter};
+use std::fs::File;
 
 use thiserror::Error;
 
@@ -11,7 +13,7 @@ mod threaded;
 /// a field called `type`. It outputs a [Report] containing the number of objects with each `type`, and their total size
 /// in bytes.
 pub fn crunch(path: &str) -> Result<Report, CruncherError> {
-    let file = std::fs::File::open(path)?;
+    let file = File::open(path)?;
     threaded::crunch(file)
 }
 
@@ -94,9 +96,7 @@ impl Statistics {
 #[derive(Error, Debug)]
 pub enum CruncherError {
     #[error("error")]
-    GenericFailure(#[from] Box<dyn std::error::Error + Send + Sync>),
+    GenericFailure(#[from] Box<dyn Error + Send + Sync>),
     #[error("io error")]
     IOFailure(#[from] std::io::Error),
-    #[error("serialization error")]
-    SerializationFailure(#[from] serde_json::Error),
 }

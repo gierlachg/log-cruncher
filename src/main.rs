@@ -11,13 +11,6 @@ fn main() {
     }
 }
 
-#[derive(serde::Serialize)]
-struct Record {
-    r#type: String,
-    foo: String,
-    bar: Vec<i32>,
-}
-
 fn parse_arguments() -> ArgMatches<'static> {
     App::new(env!("CARGO_PKG_DESCRIPTION"))
         .version(env!("CARGO_PKG_VERSION"))
